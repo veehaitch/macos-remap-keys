@@ -44,7 +44,7 @@ keyboard:
 Apply your configuration as follows:
 
 ```bash
-hidutil property --set `./emit.py --hidutil-property`
+hidutil property --set `./remap.py --hidutil-property`
 ```
 
 ## Persistent configuration
@@ -54,7 +54,7 @@ you can load it automatically using launchd. To load your configuration
 automatically on the next restart, execute the following command:
 
 ```bash
-./emit.py --launchd-plist ~/Library/LaunchAgents/ch.veehait.macos-remap-keys.plist
+./remap.py --launchd-plist ~/Library/LaunchAgents/ch.veehait.macos-remap-keys.plist
 ```
 
 ## Gruselkabinett

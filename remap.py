@@ -1,18 +1,26 @@
 #!/usr/bin/env python3
 
-import json, yaml
+import json
+import yaml
 import textwrap
 from typing import Dict, Any
 import re
+import os
+
+def filepath(string):
+    if os.path.exists(string):
+        return string
+    else:
+        raise FileNotFoundError(string)
 
 
-def load_keytables() -> Dict[str, Any]:
-    with open("./keytables.yaml", "r") as f:
+def load_keytables(path: str) -> Dict[str, Any]:
+    with open(path, "r") as f:
         return yaml.safe_load(f)
 
 
-def load_config() -> Dict[str, Any]:
-    with open("./config.yaml", "r") as f:
+def load_config(path: str) -> Dict[str, Any]:
+    with open(path, "r") as f:
         return yaml.safe_load(f)
 
 
@@ -65,6 +73,8 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
+    parser.add_argument("--config", "-c", type=filepath, default="config.yaml")
+    parser.add_argument("--keytables", "-k", type=filepath, default="keytables.yaml")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument(
         "--hidutil-property",
@@ -80,8 +90,8 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    keytables = load_keytables()
-    config = load_config()
+    keytables = load_keytables(args.keytables)
+    config = load_config(args.config)
 
     if args.hidutil_property:
         print(create_property(config, keytables))
