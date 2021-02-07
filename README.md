@@ -57,6 +57,49 @@ automatically on the next restart, execute the following command:
 ./remap.py --launchd-plist ~/Library/LaunchAgents/ch.veehait.macos-remap-keys.plist
 ```
 
+## Nix?
+
+If you're using Nix with Home Manager on Darwin, you can use something like
+the following to manage your mappings. It takes care of applying your remapping
+configuration after a `home-manager switch` and also links the launchd plist 
+to get picked up on restarts.
+
+```nix
+{ config, pkgs, lib, ... }:
+let
+  macos-remap-keys-flake = builtins.getFlake "github:veehaitch/macos-remap-keys";
+  macos-remap-keys = macos-remap-keys-flake.defaultPackage.x86_64-darwin;
+  keytables = builtins.toPath "${macos-remap-keys-flake}/keytables.yaml";
+  config = pkgs.writeText "macos-remap-config.yaml" (builtins.toJSON {
+    keyboard = {
+      Capslock = "Backspace";
+      Backspace = "Delete";
+    };
+  });
+  macos-remap-launchd = pkgs.runCommand "macos-remap-launchd" { } ''
+    mkdir -p $out
+    ${macos-remap-keys}/bin/remap.py \
+      --config "${config}" \
+      --keytables "${keytables}" \
+      --launchd-plist \
+      "$out/ch.veehait.macos-remap-keys.plist" >/dev/null
+  '';
+in
+{
+  # Activate the remappings on switch
+  home.activation."macosRemapKeys" = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    $DRY_RUN_CMD hidutil property --set \
+      `${macos-remap-keys}/bin/remap.py \
+      --config ${config} \
+      --keytables ${keytables} \
+      --hidutil-property` >/dev/null
+  '';
+
+  # Activate the remappings on boot
+  home.file."Library/LaunchAgents/ch.veehait.macos-remap-keys.plist".source = "${macos-remap-launchd}/ch.veehait.macos-remap-keys.plist";
+}
+```
+
 ## Gruselkabinett
 
 Although very similar, the format demanded by `hidutil` isn't JSON.
