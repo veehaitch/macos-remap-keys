@@ -1,0 +1,130 @@
+# Key usage ids according to https:#blog.codefront.net/2020/06/24/remapping-keys-on-macos
+keyboard:
+  A: 0x4  # a and A
+  B: 0x5  # b and B
+  C: 0x6  # c and C
+  D: 0x7  # d and D
+  E: 0x8  # e and E
+  F: 0x9  # f and F
+  G: 0xA  # g and G
+  H: 0xB  # h and H
+  I: 0xC  # i and I
+  J: 0xD  # j and J
+  K: 0xE  # k and K
+  L: 0xF  # l and L
+  M: 0x10  # m and M
+  N: 0x11  # n and N
+  O: 0x12  # o and O
+  P: 0x13  # p and P
+  Q: 0x14  # q and Q
+  R: 0x15  # r and R
+  S: 0x16  # s and S
+  T: 0x17  # t and T
+  U: 0x18  # u and U
+  V: 0x19  # v and V
+  W: 0x1A  # w and W
+  X: 0x1B  # x and X
+  Y: 0x1C  # y and Y
+  Z: 0x1D  # z and Z
+
+  One: 0x1E  # 1 and !
+  Two: 0x1F  # 2 and @
+  Three: 0x20  # 3 and #
+  Four: 0x21  # 4 and $
+  Five: 0x22  # 5 and %
+  Six: 0x23  # 6 and ^
+  Seven: 0x24  # 7 and &
+  Eight: 0x25  # 8 and *
+  Nine: 0x26  # 9 and (
+  Zero: 0x27  # 0 and )
+
+  Enter: 0x28
+  Escape: 0x29
+
+  Backspace: 0x2A
+  Tab: 0x2B
+  Spacebar: 0x2C
+  Minus: 0x2D  # - and _
+  Equal: 0x2E  # = and +
+  SquareBracketOpen: 0x2F  # [ and {
+  SquareBracketClose: 0x30  # ] and }
+  Backslash: 0x31  # \ and |
+  Hash: 0x32  # # and ~
+  Semicolon: 0x33  # ; and :
+  SingleQuote: 0x34  # ' and "
+  GraveAccent: 0x35  # Grave Accent and Tilde
+  Comma: 0x36  # , and "<"
+  Dot: 0x37  # . and ">"
+  Slash: 0x38  # / and ?
+  Capslock: 0x39  # Caps Lock
+
+  F1: 0x3A
+  F2: 0x3B
+  F3: 0x3C
+  F4: 0x3D
+  F5: 0x3E
+  F6: 0x3F
+  F7: 0x40
+  F8: 0x41
+  F9: 0x42
+  F10: 0x43
+  F11: 0x44
+  F12: 0x45
+
+  F13: 0x68
+  F14: 0x69
+  F15: 0x6A
+  F16: 0x6B
+  F17: 0x6C
+  F18: 0x6D
+  F19: 0x6E
+  F20: 0x6F
+  F21: 0x70
+  F22: 0x71
+  F23: 0x72
+  F24: 0x73
+
+  PrintScreen: 0x46
+  ScrollLock: 0x47
+  Pause: 0x48
+  Insert: 0x49
+  Home: 0x4A
+  PageUp: 0x4B
+  Delete: 0x4C
+  End: 0x4D
+  PageDown: 0x4E
+  RightArrow: 0x4F
+  RightLeft: 0x50
+  RightDown: 0x51
+  RightUp: 0x52
+  NumLock: 0x53  # Num Lock and Clear
+
+  ControlLeft: 0xE0
+  ShiftLeft: 0xE1
+  AltLeft: 0xE2
+  GUILeft: 0xE3
+  ControlRight: 0xE4
+  ShiftRight: 0xE5
+  AltRight: 0xE6
+  GUIRight: 0xE7
+keypad:
+  Slash: 0x54  # /
+  Asterisk: 0x55  # *
+  Minus: 0x56  # -
+  Plus: 0x57  # +
+  Enter: 0x58
+  One: 0x59  # 1 and End
+  Two: 0x5A  # 2 and Down Arrow
+  Three: 0x5B  # 3 and Page Down
+  Four: 0x5C  # 4 and Left Arrow
+  Five: 0x5D  # 5
+  Six: 0x5E  # 6
+  Seven: 0x5F  # 7
+  Eight: 0x60  # 8
+  Nine: 0x61  # 9
+  Zero: 0x62  # 0
+  Dot: 0x63  # . and Delete
+  BashSlash: 0x64  # Non-US \ and |
+  Application: 0x65
+  Power: 0x66
+  Equal: 0x67  # =
