@@ -7,6 +7,26 @@ from typing import Dict, Any
 import re
 import os
 
+LAUNCHD_TEMPLATE = """\
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>ch.veehait.macos-remap-keys</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/hidutil</string>
+        <string>property</string>
+        <string>--set</string>
+        <string>{property}</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
+"""
+
 def filepath(string):
     if os.path.exists(string):
         return string
@@ -59,10 +79,7 @@ def create_property(
 
 
 def launchd_definition(hidutil_property: str, outpath: str) -> str:
-    with open("./launchd-template.plist", "r") as f:
-        template = f.read()
-
-    res = template.replace("$REPLACEME$", hidutil_property)
+    res = LAUNCHD_TEMPLATE.format(property=hidutil_property)
     with open(outpath, "w") as f:
         f.write(res)
 
