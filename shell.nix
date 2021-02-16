@@ -1,15 +1,9 @@
-{ pkgs ? import <nixpkgs> { } }:
-with pkgs;
 let
-  pythonEnv = python3.withPackages (ps: with ps; [
-    ipython
-    pyyaml
-  ]);
+  flakeLock = builtins.fromJSON (builtins.readFile ./flake.lock);
+  flake-compat-rev = fetchTarball {
+    url = "https://github.com/edolstra/flake-compat/archive/${flakeLock.nodes.flake-compat.locked.rev}.tar.gz";
+    sha256 = flakeLock.nodes.flake-compat.locked.narHash;
+  };
+  flake-compat = import flake-compat-rev { src = ./.; };
 in
-mkShell {
-  name = "macos-remap-keys-shell";
-  buildInputs = [
-    pythonEnv
-    black
-  ];
-}
+flake-compat.shellNix

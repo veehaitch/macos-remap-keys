@@ -3,7 +3,7 @@
 
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
-  # Also add flake-compat to input and outputs to easily allow updating
+  # Also add flake-compat to inputs and outputs to easily allow updating
   inputs.flake-compat = {
     url = "github:edolstra/flake-compat";
     flake = false;
@@ -31,9 +31,16 @@
             maintainers = pkgs.lib.maintainers.veehaitch;
           };
         };
+        defaultPackage = self.packages.${system}.${name};
 
-        defaultPackage = self.packages.${system}.macos-remap-keys;
+        # `nix run`
+        apps.${name} = flake-utils.lib.mkApp {
+          drv = packages.${name};
+          exePath = "/bin/remap.py";
+        };
+        defaultApp = apps.${name};
 
+        # `nix run .#launchd`
         apps.launchd = {
           type = "app";
           program =
@@ -47,6 +54,7 @@
             in drv.outPath;
         };
 
+        # `nix run .#hidutil`
         apps.hidutil = {
           type = "app";
           program =
@@ -60,7 +68,14 @@
             in drv.outPath;
         };
 
-        devShell = import ./shell.nix { inherit pkgs; };
+        # `nix develop`
+        devShell = pkgs.mkShell {
+          name = "${name}-shell";
+          nativeBuildInputs = [
+            pkgs.black
+            (dependencies python.pkgs)
+          ];
+        };
       }
     );
 }
