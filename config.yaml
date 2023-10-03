@@ -1,3 +1,4 @@
 keyboard:
   Capslock: Backspace
   Backspace: Delete
+  ControlRight: Disable

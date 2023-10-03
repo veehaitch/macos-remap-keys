@@ -68,7 +68,12 @@ def create_property(
     for keyinput, mappings in config.items():
         for src_key_name, dst_key_name in mappings.items():
             src_key_id = key_id(keytables[keyinput][src_key_name])
-            dst_key_id = key_id(keytables[keyinput][dst_key_name])
+
+            if dst_key_name == 'Disable':
+                dst_key_id = 0xFFFFFFFF
+            else:
+                dst_key_id = key_id(keytables[keyinput][dst_key_name])
+
             res.append(remap(src_key_id, dst_key_id))
 
     res = {"UserKeyMapping": res}
